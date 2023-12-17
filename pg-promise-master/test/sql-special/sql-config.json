@@ -1,8 +1,0 @@
-{
-  "dir": "./test/sql",
-  "output": "generated.js",
-  "module": {
-    "name": "load",
-    "path": "./loadSql"
-  }
-}
