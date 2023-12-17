@@ -1,0 +1,108 @@
+
+<style>
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.navbar {
+  overflow: hidden;
+  background-color: #0d151b;
+}
+
+.navbar a {
+  float: left;
+  font-size: 16px;
+  color: rgb(240, 234, 157);
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.dropdown {
+  float: left;
+  overflow: hidden;
+}
+
+.dropdown .dropbtn {
+  font-size: 16px;  
+  border: none;
+  outline: none;
+  color: rgb(181, 230, 227);
+  padding: 14px 16px;
+  background-color: inherit;
+  font-family: inherit;
+  margin: 0;
+}
+
+.navbar a:hover, .dropdown:hover .dropbtn {
+  background-color: rgb(28, 107, 103);
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #63a05d;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(247, 62, 52, 0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  float: none;
+  color: rgb(244, 245, 232);
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+.dropdown-content a:hover {
+  background-color: #154d26;
+}
+
+.dropdown-content label {
+  font-size: 14px;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+</style>
+
+<div class="navbar">
+  
+  <a href="/posts">Posts</a>
+  <a href="/add-post">New Post</a>
+  <a href="/contacts">Contacts</a>
+  <a href="/pg-fn_table/09001">Nurtrient</a>
+  <a href="/pg-goods_html">GoodsList</a>
+   
+  <div class="dropdown">
+    <button class="dropbtn">Technology 
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+
+      <label> __ specifications of production ________</label>
+      <a href="/specifications-list">Specifications</a>
+      <a href="/pg-form/RedistributionsPoints">RedistributionsPoints</a>
+      <label> __ tech map. operations _____________</label>
+      <a href="/routing-list">TechnologicalRoutings</a>
+      <a href="/pg-form/TechOperation">TechOperation</a>
+      <a href="/pg-form/WorkCenter">WorkCenter</a>
+      <a href="/pg-form/Professions">Professions</a>
+      <a href="/pg-form/GoodsCard">GoodsCard</a>
+    </div>
+  </div> 
+  <div class="dropdown">
+    <button class="dropbtn">Prefernces 
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+      <a href="#">Sort</a>
+      <a href="#">General</a>
+ 
+    </div>
+  </div> 
+  
+</div>

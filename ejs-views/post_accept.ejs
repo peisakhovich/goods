@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('./partials/head.ejs') %>
+<body>
+  <%- include('./partials/nav.ejs') %>
+  <div class="datatable">
+    
+    <div>
+      <button onclick="history.back()"> ◄back </button>
+    </div>
+    
+    <div class="info">
+      
+    
+      Commit result: <br>
+
+      <% if (e_data.length) { %>
+        <% e_data.forEach(({result})=> { %>
+          <%=result%>
+           <% }) %>
+            <% } %>
+            
+ 
+    </div>
+    
+
+  
+  </div>
+  <script>
+    setInterval(myTimer, 7000);
+    
+    function myTimer() {
+      history.back()
+    }
+    </script>
+  
+</body>
+</html>

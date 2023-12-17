@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('./partials/head.ejs') %>
+
+  <body>
+    <%- include('./partials/nav.ejs') %>
+      <h1>
+        <%=Heder%>
+      </h1>
+
+      <div class="DivConteiner">
+
+
+        <form id="main-form" method="post" action="accept-data" onload="Form_refresh()">
+          <fieldset>
+            <legend>
+              mode
+            </legend>
+            <input type="radio" id="mode" name="mode" value="1" checked>v
+            <input type="radio" id="mode" name="mode" value="2">+
+            <input type="radio" id="mode" name="mode" value="3">-
+
+
+            <input type="button" value="◄back " onclick="history.back()">
+            <input type="submit" value="Commit to DB" name="Commit">
+            <input type="button" value="Refresh" onclick="Form_refresh()">
+            
+
+          </fieldset>
+
+          <div class="datatable">
+            <% if (gh_dataset.length) { %>
+
+              <% gh_dataset.forEach( ({gh_id, gh_parent, gh_code, gh_isnode, gh_name})=> { %>
+                <table>
+                  <tr>
+                    <th>Properties</th>
+                    <th>Value</th>
+                    <th>id</th>
+                    <th>
+                      <!-- <%= gh_id %> -->
+                      <input style="color:rgb(37, 34, 85)" ; type="text" ; name="gh_id" ; readonly ; size=8 ; value=<%-
+                        gh_id %> >
+                    </th>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      code
+                    </td>
+                    <td>
+                      <!-- <%= gh_code %> -->
+                      <input type="text" ; name="gh_code" ; size=20 ; value=<%- gh_code %> >
+                    </td>
+                    <td>
+                      parent
+                    </td>
+                    <td>
+                      <!-- <%= gh_parent %> -->
+                      <select class="SelectDropDown" Name="Choice_Parent" ; onclick="Parent_click()" ;
+                        Size="Number_of_options">
+
+                        <% if (parent_dataset.length) { %>
+                          <% parent_dataset.forEach(({id, code, name })=> { %>
+
+                            <% if (id==gh_parent) { %>
+                              <option class="OtionListSelected" ; selected>
+                                <% } else { %>
+                              <option class="OtionList">
+                                <% } %>
+                                  <%=name%>:<%=code%>
+                              </option>
+
+                              <% }) %>
+                                <% } %>
+                      </select>
+
+
+                    </td>
+                    <!-- </tr>
+                  <tr> -->
+                  </tr>
+                  <tr>
+                    <td>
+                      name
+                    </td>
+                    <td>
+
+                      <textarea name="gh_name" ; rows="1" ; cols="50">  <%- gh_name %> </textarea>
+
+                    </td>
+                    <td>
+                      is folder
+
+                    </td>
+                    <td>
+                      <!-- <%= gh_isnode %> -->
+                      <% if (gh_isnode) { %>
+                        <input type="checkbox" ; name="gh_isnode" ; checked />
+                        <% } else { %>
+                          <input type="checkbox" ; name="gh_isnode" />
+                          <% } %>
+                    </td>
+                  </tr>
+                  <!--% If item is not node to show the details of good
+                  -->
+                  <% if (gh_isnode==false) { %>
+
+                    <tr>
+
+                      <th>
+                        <% if (g_dataset.length==0) { %>
+                          <input type="checkbox" name="add_properties">Add properties
+                          <% } else { %>
+
+                            Addition Properties
+                      <th> <input type="checkbox" name="remove_properties">Remove addition properties </th>
+                      <th> <input type="submit" value="Edit units" name="Units"></th>
+
+                      <% } %>
+                        </th>
+                    </tr>
+                    <% if (g_dataset.length) { %>
+
+                      <% g_dataset.forEach( ({g_id, g_fullname, gr_code, gu_account, gu_stock, gu_report, g_isnode})=>
+                        {%>
+
+                        <tr>
+                          <td>
+                            fullname
+                          </td>
+                          <td>
+                            <textarea name="g_fullname" ; rows="1" ; cols="50">  <%- g_fullname %> </textarea>
+                          </td>
+                          <td>
+                            is specification
+                          </td>
+                          <td>
+                            <% if (g_isnode) { %>
+                              <input type="checkbox" ; name="g_isnode" ; checked />
+                              <% } else { %>
+                                <input type="checkbox" ; name="g_isnode" />
+                                <% } %>
+                          </td>
+
+                        </tr>
+                        <tr>
+                          <td>group</td>
+                          <td>
+                            
+                            <select class="SelectDropDown" Name="Choice_Group" ; onclick="Group_click()" ;
+                              Size="Number_of_options">
+
+                              <% if (group_dataset.length) { %>
+                                <% group_dataset.forEach(({code, gr_name })=> { %>
+
+                                  <% if (code==gr_code) { %>
+                                    <option class="OptionListSelected" ; selected>
+                                      <% } else { %>
+                                    <option class="OptionList">
+                                      <% } %>
+                                        <%=gr_name%>:<%=code%>
+                                    </option>
+
+                                    <% }) %>
+                                      <% } %>
+                            </select>
+
+
+                          </td>
+                        </tr>
+
+
+
+
+                        <% }) %>
+
+                          <!-- <% } %> -->
+
+                          <% } %>
+
+                            <% }) %>
+                              <% } %>
+                </table>
+          </div>
+
+        </form>
+      </div>
+      <script>
+
+        window.onblur = function () { window.onfocus = function () { location.reload(true) } };
+        function Form_refresh() {
+          location.reload();
+        };
+
+
+
+        function Item_click() {
+          var itm = document.getElementsByName("Choice_Item");
+          var wc = document.getElementsByName("New_newname");
+
+          wc[0].value = itm[0].value.slice(0, itm[0].value.indexOf(':'));
+        }
+
+      </script>
+
+  </body>
+
+</html>

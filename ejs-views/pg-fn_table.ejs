@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('./partials/head.ejs') %>
+
+  <body>
+    <%- include('./partials/nav.ejs') %>
+      <h1>
+        <%=Heder%>
+      </h1>
+
+      <div class="DivConteiner">
+
+        <div class="Select">
+          <a class="data" href="/pg-food_table"> Foods select</a>
+        </div>
+  
+        <div class="datatable">
+          <% if (dataset1.length) { %>
+            <% dataset1.forEach(({ndb_no,long_desc })=> { %>
+              <p>FoodCode- <%= ndb_no %> 
+              </p>
+              <p>FoodDesc- <%= long_desc %>
+              </p>
+  
+              <% }) %>
+           
+                <% } %>
+  
+                  <table>
+                    <tr>
+                      <th>Nutrient</th>
+                      <th>Value</th>
+                      <th>Units</th>
+                    </tr>
+                    <% if (dataset.length) { %>
+                      <% dataset.forEach(({ndb_no,long_desc, nutrdesc,nutr_val,units })=> { %>
+                        <!-- <li class="data"> -->
+                        <!-- <a class="data" href="/goods-group/<%= ndb_no %>">
+                  <%= ndb_no %> - <%= long_desc %>
+                </a> -->
+                        <tr>
+                          <td>
+                            <%= nutrdesc %>
+                          </td>
+                          <td>
+                            <%= nutr_val %>
+                          </td>
+                          <td>
+                            <%= units %>
+                          </td>
+                        </tr>
+  
+                        <!-- </li> -->
+                        <% }) %>
+                          <% } %>
+                  </table>
+        </div>
+      </div>
+  </body>
+
+</html>

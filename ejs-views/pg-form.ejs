@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('./partials/head.ejs') %>
+
+  <body>
+    <%- include('./partials/nav.ejs') %>
+      <h1>
+        <%=Heder%>
+
+      </h1>
+
+
+      <!-- <a class="Event" href="#" id="event_result"></a> -->
+
+      <form id="main-form" method="post" action="accept-data" onload="Form_refresh()">
+        <div>
+
+          <div>
+            <textarea name="EntityName" ; rows="1" ; cols="40" ; readonly>
+            <%-Entity%>
+            </textarea>
+          </div>
+          <div>
+            <fieldset>
+              <legend>
+                mode
+              </legend>
+              <input type="radio" id="mode" name="mode" value="1" checked>v
+              <input type="radio" id="mode" name="mode" value="2">+
+              <input type="radio" id="mode" name="mode" value="3">-
+
+
+              <input type="submit" value="Commit to DB">
+              <input type="button" value="Refresh" onclick="Form_refresh()">
+
+            </fieldset>
+          </div>
+
+        </div>
+        <div class="datatable">
+
+          <table>
+
+            <tr>
+
+              <td>
+                <select  class="SelectDropDown" Name="Choice_Item" ; onclick="Item_click()" ; Size="Number_of_options">
+
+                  <% if (e_data.length) { %>
+                    <% e_data.forEach(({e_id, e_name })=> { %>
+
+                      <% if (e_id==1) { %>
+                        <option class="OtionListSelected" selected>
+                          <% } else { %>
+
+                        <option class="OtionList">
+                          <% } %>
+
+                            <%=e_name%>:<%=e_id%>
+                        </option>
+
+                        <% }) %>
+                          <% } %>
+                </select>
+              </td>
+              <td>New value</td>
+
+              <td> <input type="text" ; name="New_newname" ; ondblclick="Item_click()" ; size=50> </td>
+
+            </tr>
+          </table>
+        </div>
+
+
+      </form>
+
+      <script>
+
+        window.onblur = function () { window.onfocus = function () { location.reload(true) } };
+        function Form_refresh() {
+          location.reload();
+        };
+        function Item_click() {
+          var itm = document.getElementsByName("Choice_Item");
+          var wc = document.getElementsByName("New_newname");
+
+
+          // var str = wcs[0].innerHTML;
+          // var js = '[' + str.replaceAll('  ','').replaceAll('<option value="', '{"id":').replaceAll('">', ',"capiton":"').replaceAll('</option>', '"},');
+          //var st = JSON.parse(js).find((el) => el.id === numPos).capiton;
+          //.replaceAll(/[^a-zA-Z0-9а-яА-Я{}[]:,/gi, '' )
+          wc[0].value = itm[0].value.slice(0, itm[0].value.indexOf(':'));
+        }
+
+      </script>
+  </body>
+
+</html>

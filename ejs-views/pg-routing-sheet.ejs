@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('./partials/head.ejs') %>
+
+
+
+  <body>
+    <%- include('./partials/nav.ejs') %>
+      <h1>
+        <%=Heder%>
+      </h1>
+
+      <!-- Head Form routing  -->
+      <div class="DivConteiner">
+
+
+        <form id="form_rout" method="post" action="#" onload="Form_refresh()" onsubmit="FormSubmit()">
+          <fieldset>
+            <legend>
+              mode
+            </legend>
+            
+            <!-- <input type="button" value="◄back " onclick="document.location.replace('/routing-list')"> -->
+            <input type="button" value="◄back " onclick="history.back()">
+
+            <% if (!dataset.length) { %>
+              <input type="submit" value="Add First Record" name="AddFirst">
+              <% } %>
+
+                <input type="button" value="Refresh" onclick="Form_refresh()">
+                <input type="hidden" ; name="RowData">
+          </fieldset>
+
+          <div class="datatable">
+            <% if (dataset.length) { %>
+
+              <table name="TableData" id="TableData">
+                <tr>
+                  <th>•</th>
+                  <th>Action</th>
+                  <th>code</th>
+                  <th>name</th>
+                  <th>active</th>
+                  <th>approval_date</th>
+                  <th>isapproval</th>
+                  <th>comment</th>
+
+
+                </tr>
+                <% dataset.forEach( ({r_id, r_name, r_isactive, r_approval_date, r_isapproval, r_comment, r_code,
+                  rs_count})=> { %>
+                  <tr>
+
+                    <td>
+                      <input style="color:rgb(38, 87, 76)" type="hidden" ; name="r_id" ; size="5" ; readonly ; value=<%-
+                        r_id %> >
+                    </td>
+                    <td>
+
+                      <select style="color:rgb(243, 169, 85) ; background-color: rgb(31, 45, 46);"
+                        class="SelectDropDown" Name="RecMode" ; Size="Number_of_options">
+
+                        <option class="OptionListSelected" ; value="CountOperations">
+                          Count-<%= rs_count%>
+                        </option>
+
+                        <option class="OptionListSelected" ; value="Update">
+                          Update
+                        </option>
+
+                      </select>
+
+                    </td>
+                    <td>
+                      <input type="text" ; name="r_code" ; size="20" ; value=<%- r_code %> >
+                    </td>
+                    <td>
+                      <textarea name="r_name" ; rows="1" ; cols="30">  <%- r_name %> </textarea>
+                    </td>
+
+                    <td>
+
+                      <select class="SelectDropDown" Name="r_isactive" ; Size="Number_of_options">
+
+
+                        <% if (r_isactive) { %>
+                          <option selected class="OptionListSelected" ; value="true">
+                            yes
+                          </option>
+                          <option class="OptionListSelected" ; value="false">
+                            no
+                          </option>
+                          <% } else { %>
+                            <option class="OptionListSelected" ; value="true">
+                              yes
+                            </option>
+                            <option selected class="OptionListSelected" ; value="false">
+                              no
+                            </option>
+
+                            <% } %>
+
+                      </select>
+
+
+                    </td>
+
+                    <td>
+                      <input type="date" ; name="r_approval_date" ; size="9" ; value=<%- r_approval_date %> >
+                    </td>
+                    <td>
+                      <select class="SelectDropDown" Name="r_isapproval" ; Size="Number_of_options">
+
+                        <% if (r_isapproval) { %>
+                          <option selected class="OptionListSelected" ; value="true">
+                            yes
+                          </option>
+                          <option class="OptionListSelected" ; value="false">
+                            no
+                          </option>
+                          <% } else { %>
+                            <option class="OptionListSelected" ; value="true">
+                              yes
+                            </option>
+                            <option selected class="OptionListSelected" ; value="false">
+                              no
+                            </option>
+
+                            <% } %>
+
+                      </select>
+
+                    </td>
+                    <td>
+                      <textarea name="r_comment" ; rows="1" ; cols="15">  <%- r_comment %> </textarea>
+                    </td>
+
+
+                  </tr>
+
+                  <% }) %>
+                    <% } %>
+              </table>
+          </div>
+
+        </form>
+      </div>
+
+
+      <!-- Details Form routing sheet  -->
+      <div class="DivConteiner">
+
+
+        <form id="form_routsheet" method="post" action="accept-data" onload="Form_refresh()" onsubmit="FormSubmit()">
+
+          <% if (!rs_dataset.length) { %>
+            <input type="submit" value="Add First Record" name="AddFirstItemSheet">
+            <% } %>
+              <input type="hidden" ; name="RowDataSheet">
+              <input type="hidden" ; name="RoutID">
+
+
+
+              <div class="datatable">
+                <% if (rs_dataset.length) { %>
+
+                  <table name="TableDataSheet" id="TableDataSheet">
+                    <tr>
+                      <th>•</th>
+                      <th>Action</th>
+                      <th>number</th>
+                      <th>work center</th>
+                      <th>operation</th>
+                      <th>time(sec)</th>
+                      <th>time(min)</th>
+                      <th>proff</th>
+                      <th>comment</th>
+
+                    </tr>
+                    <% rs_dataset.forEach( ({rs_id, r_id, rs_wc, rs_to, rs_number, rs_time ,rs_time_min , rs_comment, rs_pr })=> { %>
+                      <tr>
+                        <td>
+                          <input style="color:rgb(70, 180, 85)" type="text" ; name="rs_id" ; size="5" ; readonly ;
+                            value=<%- rs_id %> >
+                        </td>
+                        <td>
+                          <select style="color:rgb(243, 169, 85) ; background-color: rgb(31, 45, 46);"
+                            class="SelectDropDown" Name="SheetRecMode" ; Size="Number_of_options">
+
+                            <option class="OptionListSelected" ; value="Menu">
+                              Menu
+                            </option>
+
+                            <option class="OptionListSelected" ; value="Update">
+                              Update
+                            </option>
+
+                            <option class="OptionListSelected" ; value="AddNew">
+                              AddNew
+                            </option>
+                            <option class="OptionListSelected" ; value="Dublicate">
+                              Dublicate
+                            </option>
+                            <option class="OptionListSelected" ; value="Drop">
+                              Drop
+                            </option>
+                          </select>
+                        </td>
+                        <td>
+                          <input type="text" ; name="rs_number" ; size="10" ; value=<%- rs_number %> >
+                        </td>
+                        <td>
+                          <select class="SelectDropDown" Name="rs_wc" ; Size="Number_of_options">
+
+                            <% if (wc_dataset.length) { %>
+                              <% wc_dataset.forEach(({wc_id, wc_name })=> { %>
+
+                                <% if (rs_wc==wc_id) { %>
+                                  <option class="OtionListSelected" value=<%=wc_id%>
+                                    selected>
+                                    <% } else { %>
+                                  <option class="OtionList" value=<%=wc_id%>>
+                                    <% } %>
+                                      <%= wc_name%>
+                                  </option>
+
+                                  <% }) %>
+                                    <% } %>
+                          </select>
+                        </td>
+                        <td>
+                          <select class="SelectDropDown" Name="rs_to" ; Size="Number_of_options">
+
+                            <% if (to_dataset.length) { %>
+                              <% to_dataset.forEach(({to_id, to_name })=> { %>
+
+                                <% if (rs_to==to_id) { %>
+                                  <option class="OtionListSelected" value=<%=to_id%>
+                                    selected>
+                                    <% } else { %>
+                                  <option class="OtionList" value=<%=to_id%>>
+                                    <% } %>
+                                      <%= to_name%>
+                                  </option>
+
+                                  <% }) %>
+                                    <% } %>
+                          </select>
+                        </td>
+                        <td>
+                          <input type="text" ; name="rs_time" ; size="10" ; value=<%- rs_time %> >
+                          <input type="hidden" ; name="rs_time_old" ; value=<%- rs_time %> >
+
+                        </td>
+                        <td>
+                          <input type="text" ; name="rs_time_min" ; size="10" ; value=<%- rs_time_min %> >
+                          <input type="hidden" ; name="rs_time_min_old" ; value=<%- rs_time_min %> >
+                        </td>
+                        <td>
+                          <select class="SelectDropDown" Name="rs_pr" ; Size="Number_of_options">
+
+                            <% if (pr_dataset.length) { %>
+                              <% pr_dataset.forEach(({pr_id, pr_name })=> { %>
+
+                                <% if (rs_pr==pr_id) { %>
+                                  <option class="OtionListSelected" value=<%=pr_id%>
+                                    selected>
+                                    <% } else { %>
+                                  <option class="OtionList" value=<%=pr_id%>>
+                                    <% } %>
+                                      <%= pr_name%>
+                                  </option>
+
+                                  <% }) %>
+                                    <% } %>
+                          </select>
+                        </td>
+                        <td>
+                          <textarea name="rs_comment" ; rows="1" ; cols="15">  <%- rs_comment %> </textarea>
+                        </td>
+
+                      </tr>
+
+                      <% }) %>
+                        <% } %>
+                  </table>
+              </div>
+
+        </form>
+      </div>
+
+
+      <script>
+
+        var table = document.getElementById("TableData"), rIndex;
+        var RetRowStr = '';
+        var form = document.getElementById("form_rout");
+        var wc = document.getElementsByName("RowData");
+
+        var table_sheet = document.getElementById("TableDataSheet"), rIndex;
+        var RetRowStr_sheet = '';
+        var form_sheet = document.getElementById("form_routsheet");
+        var wc_sheet = document.getElementsByName("RowDataSheet");
+
+
+
+        for (var i = 1; i < table.rows.length; i++) {
+          table.rows[i].onchange = function () {
+            rIndex = this.rowIndex;
+            //console.log(this.cells[1].innerHTML);
+            //var wc = document.getElementsByName("RowData");
+            RetRowStr = '{';
+            RetRowStr = RetRowStr + '"r_id":"' + document.getElementsByName("r_id")[rIndex - 1].value + '",';
+            RetRowStr = RetRowStr + '"r_name":"' + (document.getElementsByName("r_name")[rIndex - 1].value).trim() + '",';
+            RetRowStr = RetRowStr + '"r_code":"' + document.getElementsByName("r_code")[rIndex - 1].value + '",';
+            RetRowStr = RetRowStr + '"r_approval_date":"' + document.getElementsByName("r_approval_date")[rIndex - 1].value + '",';
+            RetRowStr = RetRowStr + '"RecMode":"' + document.getElementsByName("RecMode")[rIndex - 1].value + '",';
+            RetRowStr = RetRowStr + '"r_comment":"' + (document.getElementsByName("r_comment")[rIndex - 1].value).trim() + '",';
+            RetRowStr = RetRowStr + '"r_isactive":"' + document.getElementsByName("r_isactive")[rIndex - 1].value + '",';
+            RetRowStr = RetRowStr + '"r_isapproval":"' + document.getElementsByName("r_isapproval")[rIndex - 1].value + '"}';
+
+            var CurMode = document.getElementsByName("RecMode")[rIndex - 1].value;
+            console.log(CurMode);
+            if (CurMode == 'Update') {
+
+              wc[0].value = RetRowStr;
+              form.setAttribute("action", "/routings-list-accept-data");
+              form.submit();
+            };
+
+          };
+        };
+
+        for (var i = 1; i < table_sheet.rows.length; i++) {
+          table_sheet.rows[i].onchange = function () {
+            rIndex = this.rowIndex;
+
+            RetRowStr_sheet = '{';
+            RetRowStr_sheet = RetRowStr_sheet + '"RecMode":"' + document.getElementsByName("SheetRecMode")[rIndex - 1].value + '",';
+            RetRowStr_sheet = RetRowStr_sheet + '"rs_id":"' + document.getElementsByName("rs_id")[rIndex - 1].value + '",';
+            RetRowStr_sheet = RetRowStr_sheet + '"rs_wc":"' + document.getElementsByName("rs_wc")[rIndex - 1].value + '",';
+            RetRowStr_sheet = RetRowStr_sheet + '"rs_to":"' + document.getElementsByName("rs_to")[rIndex - 1].value + '",';
+            RetRowStr_sheet = RetRowStr_sheet + '"rs_number":"' + document.getElementsByName("rs_number")[rIndex - 1].value + '",';
+            RetRowStr_sheet = RetRowStr_sheet + '"rs_time":"' + document.getElementsByName("rs_time")[rIndex - 1].value + '",';
+            RetRowStr_sheet = RetRowStr_sheet + '"rs_pr":"' + document.getElementsByName("rs_pr")[rIndex - 1].value + '",';
+            RetRowStr_sheet = RetRowStr_sheet + '"rs_comment":"' + (document.getElementsByName("rs_comment")[rIndex - 1].value).trim() + '"}';
+
+            //подмены
+            if (document.getElementsByName("rs_time_min")[rIndex - 1].value != document.getElementsByName("rs_time_min_old")[rIndex - 1].value ) {
+            document.getElementsByName("rs_time")[rIndex - 1].value = document.getElementsByName("rs_time_min")[rIndex - 1].value*60;
+            document.getElementsByName("rs_time_min_old")[rIndex - 1].value =document.getElementsByName("rs_time_min")[rIndex - 1].value;
+            }; 
+            if (document.getElementsByName("rs_time")[rIndex - 1].value != document.getElementsByName("rs_time_old")[rIndex - 1].value ) {
+            document.getElementsByName("rs_time_min")[rIndex - 1].value = document.getElementsByName("rs_time")[rIndex - 1].value/60;
+            document.getElementsByName("rs_time_old")[rIndex - 1].value =document.getElementsByName("rs_time")[rIndex - 1].value;
+            }; 
+
+
+            var CurMode_sheet = document.getElementsByName("SheetRecMode")[rIndex - 1].value;
+            //console.log(CurMode_sheet);
+            if (CurMode_sheet != 'Menu') {
+
+              wc_sheet[0].value = RetRowStr_sheet;
+              document.getElementsByName("RoutID")[0].value = document.getElementsByName("r_id")[0].value;
+              form.setAttribute("action", "/routings-list-accept-data");
+              form_sheet.submit();
+            };
+
+          };
+
+        };
+
+        window.onblur = function () { window.onfocus = function () { location.reload(true); } };
+
+        function Form_refresh() { location.reload(true); };
+
+        function FormSubmit() {
+          wc_sheet[0].value = RetRowStr_sheet;
+          document.getElementsByName("RoutID")[0].value = document.getElementsByName("r_id")[0].value;
+        };
+
+      </script>
+
+  </body>
+
+</html>

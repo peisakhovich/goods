@@ -1,0 +1,285 @@
+body {
+
+  /* background: radial-gradient(#087e1c, #928dab); */
+
+
+  display: flex;
+  min-height: 100vh;
+  align-items: center;
+  /* justify-content: center; */
+  margin-top: 10px;
+  flex-direction: column;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 20px;
+  background: linear-gradient(to bottom, #00d2ff, #5038c4);
+  color: #080808;
+  
+
+}
+
+.error-code {
+  text-transform: uppercase;
+  font-size: 160px;
+  margin-bottom: 20px;
+}
+
+h1 {
+  text-transform: uppercase;
+  font-size: 20px;
+}
+
+nav {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  min-height: 60px;
+  display: flex;
+  justify-content: flex-end;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+nav ul {
+  margin: 0;
+  display: flex;
+}
+
+nav a {
+  min-height: 60px;
+  display: block;
+  padding: 10px 20px;
+  line-height: 60px;
+}
+
+li {
+  list-style: none;
+
+}
+
+li.data {
+  color: #e8f0f1;
+
+}
+
+ul {
+  padding: 0;
+}
+
+a {
+  text-decoration: none;
+  color: #f7f2f2;
+}
+
+a:hover {
+
+  color: #eadd4b;
+}
+
+/*стиль для отображения таблиц данных из Базы  */
+
+div.DivConteiner {
+
+  display: block;
+  background-color: #287386;
+}
+
+div.DivSelectConteiner {
+
+  display: block;
+
+  background-color: #65e2f8;
+}
+
+div.Select {
+  display: flex;
+}
+
+.datatable {
+  border: solid;
+  border-color: #3387b0;
+  border-style: outset;
+  border-width: 10px;
+
+}
+
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  border: 1px solid #dddddd;
+  width: 100%;
+}
+
+td {
+  border: 1px solid #dddddd;
+  align: right;
+  
+}
+
+th {
+  border: 1px solid #dddddd;
+  align: right;
+  padding: 8px;
+}
+
+tr {
+  background-color: #40d4ee;
+}
+
+tr:nth-child(even) {
+  background-color: #0f9ab3;
+}
+
+/*стиль ссылок для отображения данных из Базы  */
+
+a.data {
+  text-decoration: none;
+  color: #050505;
+
+}
+
+
+a.data:visited {
+  color: #83037c;
+  /* Цвет посещённой ссылки */
+}
+
+a.data:hover {
+  color: #c2ef47;
+  background-color: rgb(78, 18, 111);
+  /* Цвет ссылки при наведении */
+  text-decoration: none;
+  /* Добавляем подчёркивание */
+  border: 1px;
+  /* border-radius: 10px; */
+
+}
+
+
+form {
+  background-color: rgba(38, 45, 58, 0.466);
+  padding: 10px 20px;
+  border-radius: 3px;
+  display: flex;
+  flex-direction: column;
+}
+
+form div {
+  margin-bottom: 20px;
+  display: flex;
+}
+
+form div label {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.form-info {
+  justify-content: space-between;
+  gap: 20px;
+}
+
+input,
+textarea,
+button {
+  min-height: 20px;
+  border: 1px solid #000;
+  background-color: rgba(0, 0, 0, 0.4);
+  color: #fff;
+  font-size: 18px;
+  padding: 2px 2px;
+  outline: none;
+  }
+ .InputIcon{ 
+  background: url(https://img.icons8.com/windows/1x/kitchenwares.png) no-repeat right;
+  color: #f3f057;
+   background-color: #654580;
+ }
+ .InputIconExit{ 
+  background: url(https://img.icons8.com/?size=1x&id=WnsfNo4I3wKV&format=png) no-repeat right;
+  
+ }
+/* textarea {
+    resize: none;
+    min-height: 150px;
+  } */
+
+.form-button {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.form-button input {
+  text-transform: uppercase;
+  padding: 10px 15px;
+  cursor: pointer;
+}
+
+/* .form-button button {
+  text-transform: uppercase;
+  padding: 10px 15px;
+  cursor: pointer;
+} */
+
+.form-button input:hover {
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+
+article {
+  background-color: rgba(0, 0, 0, 0.4);
+  padding: 10px 20px;
+  border-radius: 3px;
+  margin-bottom: 10px;
+  ;
+}
+
+.info {
+  display: flex;
+  justify-content: space-between;
+}
+
+h2 a {
+  color: aqua;
+}
+
+span {
+  background-color: black;
+}
+
+.DivEvent {
+  display: flex;
+  flex-direction: row;
+
+
+
+}
+
+a.Event {
+  background-color: rgba(0, 0, 0, 0.4);
+  padding: 5px;
+  border-radius: 3px;
+  margin: auto;
+  /* width: 60%; */
+  border: 3px solid #73AD21;
+  padding: 10px;
+
+}
+
+/* Стиль выпадающих списков  */
+.SelectDropDown {
+  color: white;
+  background-color: rgb(17, 70, 67);
+  font-size: medium;
+}
+
+.OptionListSelected {
+  color: rgb(232, 236, 28);
+  background-color: rgb(12, 37, 83);
+}
+.OptionList {
+  color: rgb(107, 243, 198);
+  background-color: rgb(10, 53, 53);
+}
+
+/* */

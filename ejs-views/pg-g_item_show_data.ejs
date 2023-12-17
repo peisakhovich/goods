@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('./partials/head.ejs') %>
+
+  <body>
+    <%- include('./partials/nav.ejs') %>
+      <h1>
+         <%=Heder%>
+      </h1>
+
+      <div class="DivConteiner">
+
+        <div>
+          <button onclick="history.back()"> ◄back </button>
+          <button onclick="history.forward()"> forward► </button>
+        </div>
+        
+
+        <div class="datatable">
+          <% if (dataset.length) { %>
+
+            <table>
+              <tr>
+                <th>Properties</th>
+                <th>Value</th>
+                <th>Units</th>
+              </tr>
+
+              <% dataset.forEach( ({pname, pvalue, code})=> { %>
+
+                
+                <tr>
+                  <td>
+                    <%= pname %>
+                  </td>
+                  <td>
+                    <%= pvalue %>
+                  </td>
+                </tr>
+
+                <% }) %>
+                  <% } %>
+            </table>
+        </div>
+      </div>
+  </body>
+
+</html>

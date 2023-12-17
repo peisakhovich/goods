@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('./partials/head.ejs') %>
+
+
+
+  <body>
+    <%- include('./partials/nav.ejs') %>
+      <h1>
+        <%=Heder%>
+      </h1>
+
+      <!-- Head Form spesification  -->
+      <div class="DivConteiner">
+
+
+        <form id="form_spec" method="post" action="#" onload="Form_refresh()" onsubmit="FormSubmit()">
+          <fieldset>
+            <legend>
+              mode
+            </legend>
+
+            <input type="button" value="◄back " onclick="document.location.replace('/specifications-list')">
+
+            <% if (!dataset.length) { %>
+              <input type="submit" value="Add First Record" name="AddFirst">
+              <% } %>
+
+                <input type="button" value="Refresh" onclick="Form_refresh()">
+                Specification
+                <input type="hidden" ; name="RowData">
+          </fieldset>
+
+          <div class="datatable">
+            <% if (dataset.length) { %>
+
+              <table name="TableData" id="TableData">
+                <tr>
+                  <th>•</th>
+                  <th>Action</th>
+                  <th>code</th>
+                  <th>name</th>
+                  <th>redistribution</th>
+                  <th>active</th>
+                  <th>appropval_date</th>
+                  <th>isapproval</th>
+                  <th>comment</th>
+
+
+
+                </tr>
+                <% dataset.forEach( ({s_id, s_name, s_active, s_appropval_date, s_isapproval, s_comment,
+                  s_code,sp_rp_id, sc_count,r_count })=> { %>
+                  <tr>
+
+                    <td>
+                      <input style="color:rgb(38, 87, 76)" type="hidden" ; name="s_id" ; size="5" ; readonly ; value=<%-
+                        s_id %> >
+                    </td>
+                    <td>
+
+                      <select style="color:rgb(243, 169, 85) ; background-color: rgb(31, 45, 46);"
+                        class="SelectDropDown" Name="RecMode" ; Size="Number_of_options">
+
+                        <option class="OptionListSelected" ; value="CountComponent">
+                          Count-<%= sc_count %>/<%= r_count %>
+                        </option>
+
+                        <option class="OptionListSelected" ; value="Update">
+                          Update
+                        </option>
+
+
+                      </select>
+
+                    </td>
+                    <td>
+                      <input type="text" ; name="s_code" ; size="20" ; value=<%- s_code %> >
+                    </td>
+                    <td>
+                      <textarea name="s_name" ; rows="1" ; cols="30">  <%- s_name %> </textarea>
+                    </td>
+
+                    <td>
+
+                      <select class="SelectDropDown" Name="sp_rp_id" ; Size="Number_of_options">
+
+                        <% if (rp_dataset.length) { %>
+                          <% rp_dataset.forEach(({rp_id, rp_name })=> { %>
+
+                            <% if (rp_id==sp_rp_id) { %>
+                              <option class="OtionListSelected" value=<%=rp_id%> selected>
+                                <% } else { %>
+                              <option class="OtionList" value=<%=rp_id%>>
+                                <% } %>
+                                  <%=rp_name%>
+                              </option>
+
+                              <% }) %>
+                                <% } %>
+                      </select>
+
+
+                    </td>
+
+                    <td>
+
+                      <select class="SelectDropDown" Name="s_active" ; Size="Number_of_options">
+
+
+                        <% if (s_active) { %>
+                          <option selected class="OptionListSelected" ; value="true">
+                            yes
+                          </option>
+                          <option class="OptionListSelected" ; value="false">
+                            no
+                          </option>
+                          <% } else { %>
+                            <option class="OptionListSelected" ; value="true">
+                              yes
+                            </option>
+                            <option selected class="OptionListSelected" ; value="false">
+                              no
+                            </option>
+
+                            <% } %>
+
+                      </select>
+
+
+                    </td>
+
+                    <td>
+                      <input type="date" ; name="s_appropval_date" ; size="9" ; value=<%- s_appropval_date %> >
+                    </td>
+                    <td>
+                      <select class="SelectDropDown" Name="s_isapproval" ; Size="Number_of_options">
+
+                        <% if (s_isapproval) { %>
+                          <option selected class="OptionListSelected" ; value="true">
+                            yes
+                          </option>
+                          <option class="OptionListSelected" ; value="false">
+                            no
+                          </option>
+                          <% } else { %>
+                            <option class="OptionListSelected" ; value="true">
+                              yes
+                            </option>
+                            <option selected class="OptionListSelected" ; value="false">
+                              no
+                            </option>
+
+                            <% } %>
+
+                      </select>
+
+                    </td>
+                    <td>
+                      <textarea name="s_comment" ; rows="1" ; cols="15">  <%- s_comment %> </textarea>
+                    </td>
+
+
+                  </tr>
+
+                  <% }) %>
+                    <% } %>
+              </table>
+          </div>
+
+        </form>
+      </div>
+
+      <!-- Form spesification-routings  -->
+      <div class="DivConteiner">
+
+
+        <form id="form_sr" method="post" action="accept-data" onload="Form_refresh()" onsubmit="FormSubmit()">
+
+
+          <% if (!sr_dataset.length) { %>
+            <input type="submit" value="Add First Record" name="AddFirstSR">
+            <% } %>
+
+              <input type="hidden" ; name="SpID">
+              <input type="hidden" ; name="RowDataSR">
+
+              <div class="datatable">
+                <% if (sr_dataset.length) { %>
+
+                  <table name="TableDataSR" id="TableDataSR">
+                    <tr>
+                      <th>•</th>
+                      <th>Action</th>
+                      <th>routing</th>
+                      <th>valid</th>
+
+
+                    </tr>
+                    <% sr_dataset.forEach( ({ sr_r_id, sr_s_id, start_date, rs_count })=> { %>
+                      <tr>
+
+                        <td>
+                          <input style="color:rgb(20, 26, 24)" type="hidden" ; name="SR_r_id_old" ; size="5" ; readonly ;
+                            value=<%- sr_r_id %> >
+                        </td>
+                        <td>
+
+                          <select style="color:rgb(243, 169, 85) ; background-color: rgb(31, 45, 46);"
+                            class="SelectDropDown" Name="RecModeSR" ; Size="Number_of_options">
+
+                            <option class="OptionListSelected" ; value="CountRouting">
+                              Count-<%- rs_count %> 
+                            </option>
+                            <option class="OptionListSelected" ; value="Update">
+                              Update
+                            </option>
+                            <option class="OptionListSelected" ; value="AddNew">
+                              AddNew
+                            </option>
+                            <option class="OptionListSelected" ; value="Drop">
+                              Drop
+                            </option>
+                          </select>
+
+                        </td>
+                        <td>
+
+                          <select class="SelectDropDown" Name="SR_r_id" ; Size="Number_of_options">
+
+                            <% if (r_dataset.length) { %>
+                              <% r_dataset.forEach(({r_id,r_name,r_code })=> { %>
+
+                                <% if (sr_r_id==r_id) { %>
+                                  <option class="OtionListSelected" value=<%=r_id%> selected>
+                                    <% } else { %>
+                                  <option class="OtionList" value=<%=r_id%>>
+                                    <% } %>
+                                      <%- r_name%>:<%- r_code%>
+                                  </option>
+
+                                  <% }) %>
+                                    <% } %>
+                          </select>
+                        </td>
+                        <td>
+                          <input type="date" ; name="start_date" ; size="9" ; value=<%- start_date %> >
+                        </td>
+
+                      </tr>
+
+                      <% }) %>
+                        <% } %>
+                  </table>
+              </div>
+
+        </form>
+      </div>
+
+
+
+
+      <script>
+
+        var table = document.getElementById("TableData"), rIndex;
+        var RetRowStr = '';
+        var form = document.getElementById("form_spec");
+        var wc = document.getElementsByName("RowData");
+
+        var table_sr = document.getElementById("TableDataSR"), rIndex;
+        var RetRowStr_sr = '';
+        var form_sr = document.getElementById("form_sr");
+        var wc_sr = document.getElementsByName("RowDataSR");
+
+
+
+        for (var i = 1; i < table.rows.length; i++) {
+          table.rows[i].onchange = function () {
+            rIndex = this.rowIndex;
+            //console.log(this.cells[1].innerHTML);
+            //var wc = document.getElementsByName("RowData");
+            RetRowStr = '{';
+            RetRowStr = RetRowStr + '"s_id":"' + document.getElementsByName("s_id")[rIndex - 1].value + '",';
+            RetRowStr = RetRowStr + '"s_name":"' + (document.getElementsByName("s_name")[rIndex - 1].value).trim() + '",';
+            RetRowStr = RetRowStr + '"s_code":"' + document.getElementsByName("s_code")[rIndex - 1].value + '",';
+            RetRowStr = RetRowStr + '"s_appropval_date":"' + document.getElementsByName("s_appropval_date")[rIndex - 1].value + '",';
+            RetRowStr = RetRowStr + '"RecMode":"' + document.getElementsByName("RecMode")[rIndex - 1].value + '",';
+            RetRowStr = RetRowStr + '"s_comment":"' + (document.getElementsByName("s_comment")[rIndex - 1].value).trim() + '",';
+            RetRowStr = RetRowStr + '"s_active":"' + (document.getElementsByName("s_active")[rIndex - 1].value) + '",';
+            RetRowStr = RetRowStr + '"sp_rp_id":"' + (document.getElementsByName("sp_rp_id")[rIndex - 1].value) + '",';
+            RetRowStr = RetRowStr + '"s_isapproval":"' + (document.getElementsByName("s_isapproval")[rIndex - 1].value) + '"}';
+
+            var CurMode = document.getElementsByName("RecMode")[rIndex - 1].value;
+            console.log(CurMode);
+            if (CurMode == 'Update') {
+
+              wc[0].value = RetRowStr;
+              form.setAttribute("action", "/specifications-list-accept-data");
+              form.submit();
+            };
+
+          };
+        };
+
+
+        for (var i = 1; i < table_sr.rows.length; i++) {
+          table_sr.rows[i].onchange = function () {
+            rIndex = this.rowIndex;
+
+            //(typeof AddFirstComp == 'undefined') ? 'undefined' : AddFirstComp
+            
+            RetRowStr_sr = '{';
+            RetRowStr_sr = RetRowStr_sr + '"RecMode":"' + document.getElementsByName("RecModeSR")[rIndex - 1].value + '",';
+            RetRowStr_sr = RetRowStr_sr + '"r_id_old":"' + document.getElementsByName("SR_r_id_old")[rIndex - 1].value + '",';
+            RetRowStr_sr = RetRowStr_sr + '"r_id":"' + (document.getElementsByName("SR_r_id")[rIndex - 1].value) + '",';
+            RetRowStr_sr = RetRowStr_sr + '"start_date":"' + (document.getElementsByName("start_date")[rIndex - 1].value) + '"}';
+         
+            var CurMode_sr = document.getElementsByName("RecModeSR")[rIndex - 1].value;
+            console.log(CurMode_sr);
+            if (CurMode_sr != 'CountRouting') {
+
+              wc_sr[0].value = RetRowStr_sr;
+              document.getElementsByName("SpID")[0].value = document.getElementsByName("s_id")[0].value;
+              form_sr.setAttribute("action", "/specifications-routings/accept-data");
+              form_sr.submit();
+            };
+
+
+          };
+          table_sr.rows[i].ondblclick = function () {
+            rIndex = this.rowIndex;
+            form_sr.setAttribute("action", '/routing-sheet/:' + document.getElementsByName("SR_r_id_old")[rIndex - 1].value);
+              form_sr.setAttribute("method", "get");
+              form_sr.submit();
+          };
+
+        };
+
+
+
+        window.onblur = function () { window.onfocus = function () { location.reload(true) } };
+
+        function Form_refresh() { location.reload(true); };
+
+        function FormSubmit() {
+          wc_sr[0].value = RetRowStr_sr;
+          document.getElementsByName("SpID")[0].value = document.getElementsByName("s_id")[0].value;
+        };
+
+      </script>
+
+  </body>
+
+</html>

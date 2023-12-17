@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('./partials/head.ejs') %>
+
+  <body>
+    <%- include('./partials/nav.ejs') %>
+      <h1>
+        <%=Heder%>
+      </h1>
+      <ul>
+
+        <table>
+          <tr>
+            <th>Name</th>
+            <th>value</th>
+            <th>units</th>
+          </tr>
+          <% if (dataset.length) { %>
+            <% dataset.forEach(({ndb_no,long_desc, nutrdesc,nutr_val })=> { %>
+              <!-- <li class="data"> -->
+              <!-- <a class="data" href="/goods-group/<%= ndb_no %>">
+                <%= ndb_no %> - <%= long_desc %>
+              </a> -->
+              <tr>
+                <td>
+                  <%= nutrdesc %>
+                </td>
+                <td>
+                  <%= nutr_val %>
+                </td>
+              </tr>
+
+              <!-- </li> -->
+              <% }) %>
+                <% } %>
+        </table>
+      </ul>
+  </body>
+
+</html>

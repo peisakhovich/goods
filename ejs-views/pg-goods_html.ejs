@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('./partials/head.ejs') %>
+
+  <body>
+    <%- include('./partials/nav.ejs') %>
+      <h1>
+        <%=Heder%>
+
+      </h1>
+      <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+      <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jstree/3.3.8/themes/default/style.min.css" />
+      <script src="//cdnjs.cloudflare.com/ajax/libs/jstree/3.3.8/jstree.min.js"></script>
+      
+      <div class="DivEvent">
+        <a class="Event" href="#" id="event_Show"></a>
+        <a class="Event" href="#" id="event_Edit"></a>
+      </div>
+      <div>
+        <% if (dataset.length) { %>
+          <% dataset.forEach(({html_str })=> { %>
+            <%-html_str%>
+              <% }) %>
+                <% } %>
+      </div>
+      
+      <script>
+
+        // $('#html1').jstree();
+
+        $('#html1')
+          // listen for event
+         
+          .on('changed.jstree' , function (e, data) {
+            var i, j, r = [];
+            for (i = 0, j = data.selected.length; i < j; i++) {
+              r.push(data.instance.get_node(data.selected[i]).text);
+            }
+            
+            //$('#event_result').html(data.instance.get_node(data.selected[0]).text );
+            let mySh = document.getElementById('event_Show');
+            mySh.textContent = 'View data of items';
+            mySh.setAttribute('href', '/goods_show/' +  r.join(', '));
+
+            let myEd = document.getElementById('event_Edit');
+            myEd.textContent = 'Edit data of items';
+            myEd.setAttribute('href', '/goods_edit/' +  r.join(', '));
+
+          })
+          // create the instance
+          .jstree();
+
+
+      </script>
+
+  </body>
+
+</html>

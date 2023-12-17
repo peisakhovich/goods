@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('./partials/head.ejs') %>
+
+  <body>
+    <%- include('./partials/nav.ejs') %>
+      <h1>
+        <%=Heder%>
+      </h1>
+      <div class="DivSelectConteiner">
+
+        <ul>
+          <% if (dataset.length) { %>
+            <% dataset.forEach(({ndb_no,long_desc,fdgrp_desc })=> { %>
+              <li class="data">
+                <%= fdgrp_desc %> |
+
+                  <a class="data" href="/pg-fn_table/<%= ndb_no %>">
+                    <%= ndb_no %> - <%= long_desc %>
+                  </a>
+
+
+              </li>
+              <% }) %>
+                <% } %>
+
+        </ul>
+      </div>
+  </body>
+
+</html>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('./partials/head.ejs') %>
+
+  <body>
+    <%- include('./partials/nav.ejs') %>
+      <h1>
+        <%=Heder%>
+      </h1>
+
+      <div class="DivConteiner">
+
+
+        <form id="form_units" method="post" action="accept-units-data" onload="Form_refresh()">
+          <fieldset>
+            <legend>
+              mode
+            </legend>
+            <input type="radio" id="mode" name="mode" value="1" checked>v
+            <input type="radio" id="mode" name="mode" value="2">+
+            <input type="radio" id="mode" name="mode" value="3">-
+
+
+            <input type="button" value="◄back " onclick="history.back()">
+            <input type="submit" value="Commit to DB" name="Commit">
+            <input type="button" value="Refresh" onclick="Form_refresh()">
+            id-
+            <input style="color:rgb(38, 87, 76)" ; type="text" ; name="id" ; readonly ; size=5 ; value=<%- goods.id %> >
+            count records-
+            <input style="color:rgb(38, 87, 76)" ; type="text" ; name="RecCount" ; readonly ; size=5 ; value=<%-
+              units_data.length %> >
+
+          </fieldset>
+
+          <div class="datatable">
+            <% if (units_data.length) { %>
+
+              <table name="TableDate">
+                <tr>
+                  <th>unit id</th>
+                  <th>recmode</th>
+                  <th>name</th>
+                  <th>brutto</th>
+                  <th>netto</th>
+                  <th>parent</th>
+                  <th>parent<br>quantity</th>
+                  <th>base<br>factor</th>
+                  <th>sign</th>
+                  <th>is<br>base<br>unit</th>
+
+
+                </tr>
+                <% units_data.forEach( ({gu_id, gu_name, gu_brutto, gu_netto, gu_parent, gu_parent_quantity, gu_isbase,
+                  gu_base_factor, g_id, gu_sign})=> { %>
+                  <tr>
+
+                    <td>
+                      <input type="text" ; name="gu_id" ; size="5" ; value=<%- gu_id %> >
+                    </td>
+                    <td>
+
+                      <select class="SelectDropDown" Name="RecMode" ; Size="Number_of_options">
+
+                        <option class="OptionListSelected">
+                          Update
+                        </option>
+                        <option class="OptionListSelected">
+                          Dublicate
+                        </option>
+                        <option class="OptionListSelected">
+                          SetBase
+                        </option>
+                        <option class="OptionListSelected">
+                          Drop
+                        </option>
+
+                      </select>
+
+                    </td>
+
+                    <td>
+                      <textarea name="gu_name" ; rows="1" ; cols="50">  <%- gu_name %> </textarea>
+                    </td>
+                    <td>
+                      <input type="text" ; name="gu_brutto" ; size="9" ; value=<%- gu_brutto %> >
+                    </td>
+                    <td>
+                      <input type="text" ; name="gu_netto" ; size="9" ; value=<%- gu_netto %> >
+                    </td>
+                    <td>
+                      <input type="text" ; name="gu_parent" ; size="5" ; value=<%- gu_parent %> >
+                    </td>
+                    <td>
+                      <input type="text" ; name="gu_parent_quantity" ; size="5" ; value=<%- gu_parent_quantity %> >
+                    </td>
+                    <td>
+                      <input type="text" ; name="gu_base_factor" ; size="5" ; value=<%- gu_base_factor %> >
+                    </td>
+                    <td>
+                      <input type="text" ; name="gu_sign" ; value=<%- gu_sign %> >
+                    </td>
+                    <td>
+                      <% if (gu_isbase) { %>
+                        yes
+                        <% } else { %>
+                          <% } %>
+                    </td>
+                  </tr>
+
+                  <% }) %>
+                    <% } %>
+              </table>
+          </div>
+
+        </form>
+      </div>
+      <script>
+
+        window.onblur = function () { window.onfocus = function () { location.reload(true) } };
+        function Form_refresh() {
+          location.reload();
+        };
+
+      </script>
+
+  </body>
+
+</html>

@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('./partials/head.ejs') %>
+
+  <body>
+    <%- include('./partials/nav.ejs') %>
+      <h1>
+        <%=Heder%>
+      </h1>
+
+      <div class="DivConteiner">
+
+
+        <form id="form_routs" method="post" action="routings-list-accept-data" onload="Form_refresh()"
+          onsubmit="FormSubmit()">
+          <fieldset>
+            <legend>
+              mode
+            </legend>
+
+            <input type="button" value="◄back " onclick="history.back()">
+
+            <% if (!dataset.length) { %>
+              <input type="submit" value="Add First Record" name="AddFirst">
+              <% } %>
+
+                <input type="button" value="Refresh" onclick="Form_refresh()">
+
+                count records-
+                <input style="color:rgb(38, 87, 76)" ; type="text" ; name="RecCount" ; readonly ; size=5 ; value=<%-
+                  dataset.length %> >
+                <input type="hidden" ; name="RowData">
+
+
+          </fieldset>
+
+          <div class="datatable">
+            <% if (dataset.length) { %>
+
+              <table name="TableData" id="TableData">
+                <tr>
+                  <th>•</th>
+                  <th>Action</th>
+                  <th>code</th>
+                  <th>name</th>
+                  <th>active</th>
+                  <th>approval_date</th>
+                  <th>isapproval</th>
+                  <th>comment</th>
+
+
+                </tr>
+                <% dataset.forEach( ({r_id, r_name, r_isactive, r_approval_date, r_isapproval, r_comment, r_code, rs_count})=> { %>
+                  <tr>
+
+                    <td>
+                      <input style="color:rgb(38, 87, 76)" type="hidden" ; name="r_id" ; size="5" ; readonly ; value=<%- r_id %> >
+                    </td>
+                    <td>
+
+                      <select style="color:rgb(243, 169, 85) ; background-color: rgb(31, 45, 46);"
+                        class="SelectDropDown" Name="RecMode" ; Size="Number_of_options">
+
+                        <option class="OptionListSelected" ; value="CountOperations">
+                          Count-<%= rs_count%>
+                        </option>
+                        <option class="OptionListSelected" ; value="OpenRoutingSheet">
+                          OpenRoutingSheet
+                        </option>
+                        <option class="OptionListSelected" ; value="Update">
+                          Update
+                        </option>
+                        <option class="OptionListSelected" ; value="AddNew">
+                          AddNew
+                        </option>
+                        <option class="OptionListSelected" ; value="Dublicate">
+                          Dublicate
+                        </option>
+                        <option class="OptionListSelected" ; value="Drop">
+                          Drop
+                        </option>
+
+                      </select>
+
+                    </td>
+                    <td>
+                      <input type="text" ; name="r_code" ; size="20" ; value=<%- r_code %> >
+                    </td>
+                    <td>
+                      <textarea name="r_name" ; rows="1" ; cols="30">  <%- r_name %> </textarea>
+                    </td>
+
+                    <td>
+
+                      <select class="SelectDropDown" Name="r_isactive" ; Size="Number_of_options">
+
+
+                        <% if (r_isactive) { %>
+                          <option selected class="OptionListSelected" ; value="true">
+                            yes
+                          </option>
+                          <option class="OptionListSelected" ; value="false">
+                            no
+                          </option>
+                          <% } else { %>
+                            <option class="OptionListSelected" ; value="true">
+                              yes
+                            </option>
+                            <option selected class="OptionListSelected" ; value="false">
+                              no
+                            </option>
+
+                            <% } %>
+
+                      </select>
+
+
+                    </td>
+                   
+                    <td>
+                      <input type="date" ; name="r_approval_date" ; size="9" ; value=<%- r_approval_date %> >
+                    </td>
+                    <td>
+                      <select class="SelectDropDown" Name="r_isapproval" ; Size="Number_of_options">
+
+                        <% if (r_isapproval) { %>
+                          <option selected class="OptionListSelected" ; value="true">
+                            yes
+                          </option>
+                          <option class="OptionListSelected" ; value="false">
+                            no
+                          </option>
+                          <% } else { %>
+                            <option class="OptionListSelected" ; value="true">
+                              yes
+                            </option>
+                            <option selected class="OptionListSelected" ; value="false">
+                              no
+                            </option>
+
+                            <% } %>
+
+                      </select>
+
+                    </td>
+                    <td>
+                      <textarea name="r_comment" ; rows="1" ; cols="15">  <%- r_comment %> </textarea>
+                    </td>
+
+
+                  </tr>
+
+                  <% }) %>
+                    <% } %>
+              </table>
+          </div>
+
+        </form>
+      </div>
+      <script>
+
+        var table = document.getElementById("TableData"), rIndex;
+        var RetRowStr = '';
+        var form = document.getElementById("form_routs");
+        var wc = document.getElementsByName("RowData");
+
+        for (var i = 1; i < table.rows.length; i++) {
+          table.rows[i].onchange = function () {
+            rIndex = this.rowIndex;
+            //console.log(this.cells[1].innerHTML);
+            //var wc = document.getElementsByName("RowData");
+            RetRowStr = '{';
+            RetRowStr = RetRowStr + '"r_id":"' + document.getElementsByName("r_id")[rIndex - 1].value + '",';
+            RetRowStr = RetRowStr + '"r_name":"' + (document.getElementsByName("r_name")[rIndex - 1].value).trim() + '",';
+            RetRowStr = RetRowStr + '"r_code":"' + document.getElementsByName("r_code")[rIndex - 1].value + '",';
+            RetRowStr = RetRowStr + '"r_approval_date":"' + document.getElementsByName("r_approval_date")[rIndex - 1].value + '",';
+            RetRowStr = RetRowStr + '"RecMode":"' + document.getElementsByName("RecMode")[rIndex - 1].value + '",';
+            RetRowStr = RetRowStr + '"r_comment":"' + (document.getElementsByName("r_comment")[rIndex - 1].value).trim() + '",';
+            RetRowStr = RetRowStr + '"r_isactive":"' + (document.getElementsByName("r_isactive")[rIndex - 1].value) + '",';
+            RetRowStr = RetRowStr + '"r_isapproval":"' + (document.getElementsByName("r_isapproval")[rIndex - 1].value) + '"}';
+
+            var CurMode = document.getElementsByName("RecMode")[rIndex - 1].value;
+            if (CurMode == 'OpenRoutingSheet' || CurMode == 'CountOperations') {
+              console.log(CurMode);
+
+              if (CurMode == 'OpenRoutingSheet') document.location.replace("/routing-sheet/:" + document.getElementsByName("r_id")[rIndex - 1].value);
+            }
+            else {
+
+              wc[0].value = RetRowStr;
+              form.submit();;
+            }
+            ;
+
+          };
+        };
+
+
+
+        window.onblur = function () { window.onfocus = function () { location.reload(true) } };
+        function Form_refresh() {
+          location.reload();
+        };
+
+
+
+        function FormSubmit() {
+
+          wc[0].value = RetRowStr;
+        };
+
+      </script>
+
+  </body>
+
+</html>
